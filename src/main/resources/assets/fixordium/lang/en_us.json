@@ -1,0 +1,6 @@
+{
+  "fixordium.page.general": "Fixordium",
+  "fixordium.group.rendering": "Rendering",
+  "fixordium.option.enabled": "Fixordium",
+  "fixordium.option.enabled.tooltip": "Skips rendering players and mobs when they are outside your camera view. Entities still exist and continue working normally."
+}

@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Universal JAR
+    name: Fixordium 26.2
     runs-on: ubuntu-24.04
 
     steps:
@@ -25,18 +25,20 @@ jobs:
         with:
           gradle-version: '9.5.1'
 
-      - name: Build universal mod jar
+      - name: Build
         run: gradle clean build --stacktrace
 
-      - name: Prepare final jar
+      - name: Verify final jar
         run: |
           mkdir -p dist
           cp build/libs/fixordium-1.0.0.jar dist/fixordium.jar
           jar tf dist/fixordium.jar | grep 'dev/fixpot47/fixordium/FixordiumClient.class'
-          jar tf dist/fixordium.jar | grep 'dev/fixpot47/fixordium/mixin/FixordiumMixinPlugin.class'
+          jar tf dist/fixordium.jar | grep 'dev/fixpot47/fixordium/FixordiumSodiumConfig.class'
+          jar tf dist/fixordium.jar | grep 'assets/fixordium/icon.png'
+          jar tf dist/fixordium.jar | grep 'fixordium.mixins.json'
 
       - name: Upload mod jar
         uses: actions/upload-artifact@v4
         with:
-          name: fixordium-universal
+          name: fixordium-1.0.0-mc26.2
           path: dist/fixordium.jar

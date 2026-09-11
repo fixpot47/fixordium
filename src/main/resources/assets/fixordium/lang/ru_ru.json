@@ -1,0 +1,6 @@
+{
+  "fixordium.page.general": "Fixordium",
+  "fixordium.group.rendering": "Рендеринг",
+  "fixordium.option.enabled": "Fixordium",
+  "fixordium.option.enabled.tooltip": "Не рендерит игроков и мобов, когда они находятся вне поля зрения камеры. Сущности продолжают существовать и работать как обычно."
+}

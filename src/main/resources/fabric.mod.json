@@ -3,12 +3,21 @@
   "id": "fixordium",
   "version": "${version}",
   "name": "Fixordium",
-  "description": "A lightweight client-side rendering optimization mod that skips unnecessary living-entity rendering outside your view.",
+  "description": "A lightweight client-side rendering optimization mod for Fabric and Sodium.",
   "authors": ["fixpot47"],
+  "contact": {
+    "sources": "https://github.com/fixpot47/fixordium"
+  },
   "license": "MIT",
+  "icon": "assets/fixordium/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": ["dev.fixpot47.fixordium.FixordiumClient"]
+    "client": [
+      "dev.fixpot47.fixordium.FixordiumClient"
+    ],
+    "sodium:config_api_user": [
+      "dev.fixpot47.fixordium.FixordiumSodiumConfig"
+    ]
   },
   "mixins": [
     {
@@ -17,8 +26,10 @@
     }
   ],
   "depends": {
-    "fabricloader": ">=0.16.14",
-    "minecraft": ">=1.21.8 <=26.2",
-    "java": ">=21"
+    "fabricloader": ">=0.19.0",
+    "fabric-api": ">=0.152.2",
+    "sodium": ">=0.9.1",
+    "minecraft": "~26.2",
+    "java": ">=25"
   }
 }

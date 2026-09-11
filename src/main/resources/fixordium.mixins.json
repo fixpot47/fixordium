@@ -1,9 +1,9 @@
 {
   "required": true,
   "package": "dev.fixpot47.fixordium.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "plugin": "dev.fixpot47.fixordium.mixin.FixordiumMixinPlugin",
-  "client": [],
+  "client": [
+    "ModernEntityRenderDispatcherMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
