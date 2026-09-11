@@ -10,6 +10,7 @@ public final class FixordiumClient implements ClientModInitializer {
     public void onInitializeClient() {
         config = FixordiumConfig.load();
         FixordiumDebugHud.register();
+        FixordiumPerformanceController.register();
     }
 
     private static FixordiumConfig config() {
@@ -33,6 +34,50 @@ public final class FixordiumClient implements ClientModInitializer {
         config().debugCullingCounter = enabled;
     }
 
+    public static boolean isDecorationCullingEnabled() {
+        return config().decorationCulling;
+    }
+
+    public static void setDecorationCullingEnabled(boolean enabled) {
+        config().decorationCulling = enabled;
+    }
+
+    public static boolean areEntityShadowsEnabled() {
+        return config().entityShadows;
+    }
+
+    public static void setEntityShadowsEnabled(boolean enabled) {
+        config().entityShadows = enabled;
+    }
+
+    public static boolean shouldRenderEntityShadows() {
+        return config().entityShadows && !FixordiumPerformanceController.isSmartBoostActive();
+    }
+
+    public static boolean isSmartModeEnabled() {
+        return config().smartMode;
+    }
+
+    public static void setSmartModeEnabled(boolean enabled) {
+        config().smartMode = enabled;
+    }
+
+    public static int getSmartTargetFps() {
+        return config().smartTargetFps;
+    }
+
+    public static void setSmartTargetFps(int fps) {
+        config().smartTargetFps = Math.max(30, Math.min(240, fps));
+    }
+
+    public static boolean isStopMusicOnPauseEnabled() {
+        return config().stopMusicOnPause;
+    }
+
+    public static void setStopMusicOnPauseEnabled(boolean enabled) {
+        config().stopMusicOnPause = enabled;
+    }
+
     public static boolean areContainerAnimationsEnabled() {
         return config().containerAnimations;
     }
@@ -41,12 +86,20 @@ public final class FixordiumClient implements ClientModInitializer {
         config().containerAnimations = enabled;
     }
 
+    public static boolean shouldAnimateContainers() {
+        return config().containerAnimations && !FixordiumPerformanceController.isSmartBoostActive();
+    }
+
     public static boolean areBlockEntityAnimationsEnabled() {
         return config().blockEntityAnimations;
     }
 
     public static void setBlockEntityAnimationsEnabled(boolean enabled) {
         config().blockEntityAnimations = enabled;
+    }
+
+    public static boolean shouldAnimateBlockEntities() {
+        return config().blockEntityAnimations && !FixordiumPerformanceController.isSmartBoostActive();
     }
 
     public static void saveConfig() {

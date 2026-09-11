@@ -22,18 +22,18 @@ public final class FixordiumAnimationOptimizer {
             return;
         }
 
-        if (!FixordiumClient.areContainerAnimationsEnabled()) {
+        if (!FixordiumClient.shouldAnimateContainers()) {
             optimizeContainerAnimation(state);
         }
 
-        if (!FixordiumClient.areBlockEntityAnimationsEnabled()) {
+        if (!FixordiumClient.shouldAnimateBlockEntities()) {
             optimizeWorldAnimation(state);
         }
     }
 
     private static void optimizeContainerAnimation(BlockEntityRenderState state) {
         if (state instanceof ChestRenderState chest) {
-            // Preserve the useful open/closed state, but remove smooth interpolation.
+            // Preserve useful open/closed state while removing smooth interpolation.
             chest.open = snap(chest.open);
         } else if (state instanceof ShulkerBoxRenderState shulker) {
             shulker.progress = snap(shulker.progress);
@@ -65,7 +65,7 @@ public final class FixordiumAnimationOptimizer {
         } else if (state instanceof VaultRenderState vault) {
             vault.spin = 0.0F;
         } else if (state instanceof EndGatewayRenderState gateway) {
-            // Keep spawn/cooldown beam height and color, only stop texture rotation/scroll.
+            // Keep beam height and color, only stop texture rotation/scroll.
             gateway.animationTime = 0.0F;
         }
     }

@@ -3,6 +3,8 @@ package dev.fixpot47.fixordium;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.decoration.ItemFrame;
 
 public final class FixordiumRuntime {
     private static final long SAMPLE_NANOS = 1_000_000_000L;
@@ -16,7 +18,16 @@ public final class FixordiumRuntime {
     }
 
     public static boolean shouldCull(Entity entity, Frustum frustum) {
-        if (!FixordiumClient.isEnabled() || !(entity instanceof LivingEntity)) {
+        if (!FixordiumClient.isEnabled()) {
+            return false;
+        }
+
+        boolean decoration = entity instanceof ItemFrame || entity instanceof ArmorStand;
+        if (decoration) {
+            if (!FixordiumClient.isDecorationCullingEnabled()) {
+                return false;
+            }
+        } else if (!(entity instanceof LivingEntity)) {
             return false;
         }
 

@@ -1,20 +1,26 @@
 # Fixordium
 
-Fixordium is a lightweight client-side Fabric optimization mod for Minecraft 26.2 focused on reducing unnecessary living-entity rendering work.
+Fixordium is a lightweight client-side Fabric optimization mod for Minecraft 26.2 built around Sodium's Config API.
 
 ## Features
 
 - Fast pre-culling for players and mobs outside the camera frustum
-- Entities are never unloaded, frozen, or changed server-side
+- Optional early culling for item frames, glow item frames, and armor stands
+- Optional entity-shadow disabling
+- Smart Mode with a configurable target FPS
+- Smart Mode can temporarily suppress entity shadows and animated block-entity visuals when FPS drops, then restore them after performance recovers
+- Container-animation controls for chests, Ender Chests, and Shulker Boxes
+- Animation controls for banners, bells, enchanting-table books, skulls, spawners, beacons, conduits, vaults, and End Gateway beams
+- Debug HUD with skipped-render statistics and Smart Mode status
+- Optional stop-music-on-Escape behavior
 - Native Sodium Config API integration inside Video Settings
-- Dedicated Fixordium page with ON/OFF control and tooltip
-- Custom Fixordium creeper icon in the Sodium/Reese's Sodium Options menu
+- Custom Fixordium creeper icon in Sodium/Reese's Sodium Options
 - Persistent local config in `config/fixordium.json`
 - Fabric API + Sodium required
 
 ## Compatibility design
 
-Fixordium only adds a conservative entity-render pre-check and does not patch particle, chunk, block-model, leaf, or Sodium GUI internals. It is designed to coexist with Sodium, Lithium, Entity Culling, Particle Culling, Entity View Distance, Sodium Extra, Reese's Sodium Options, Continuity, Cull Leaves, More Culling, and similar optimization mods.
+Fixordium keeps its optimizations focused and avoids patching particle, chunk, block-model, leaf, or Sodium GUI internals. It is designed to coexist with Sodium, Lithium, Entity Culling, Particle Culling, Entity View Distance, Sodium Extra, Reese's Sodium Options, Continuity, Cull Leaves, More Culling, and similar optimization mods.
 
 Runtime compatibility still depends on the exact versions installed, so new releases should be tested before being marked fully compatible.
 

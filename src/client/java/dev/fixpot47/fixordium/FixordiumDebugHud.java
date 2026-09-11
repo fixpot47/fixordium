@@ -28,16 +28,32 @@ public final class FixordiumDebugHud {
         }
 
         String firstLine = "Fixordium Debug";
-        String secondLine = "Culled: " + FixordiumRuntime.getCullsPerSecond() + "/s";
+        String secondLine = "Skipped renders: " + FixordiumRuntime.getCullsPerSecond() + "/s";
         String thirdLine = "Total: " + FixordiumRuntime.getTotalCulls();
+        String fourthLine = smartLine();
 
         int margin = 5;
-        int width = Math.max(client.font.width(firstLine), Math.max(client.font.width(secondLine), client.font.width(thirdLine)));
+        int width = Math.max(
+                Math.max(client.font.width(firstLine), client.font.width(secondLine)),
+                Math.max(client.font.width(thirdLine), client.font.width(fourthLine))
+        );
         int x = graphics.guiWidth() - width - margin;
         int y = margin;
 
         graphics.text(client.font, firstLine, x, y, 0xFFFFFFFF, true);
         graphics.text(client.font, secondLine, x, y + 10, 0xFFFFFFFF, true);
         graphics.text(client.font, thirdLine, x, y + 20, 0xFFAAAAAA, true);
+        graphics.text(client.font, fourthLine, x, y + 30, 0xFFAAAAAA, true);
+    }
+
+    private static String smartLine() {
+        if (!FixordiumClient.isSmartModeEnabled()) {
+            return "Smart: OFF";
+        }
+
+        int fps = FixordiumPerformanceController.getLastSampledFps();
+        int target = FixordiumClient.getSmartTargetFps();
+        String state = FixordiumPerformanceController.isSmartBoostActive() ? "ACTIVE" : "MONITORING";
+        return "Smart: " + state + " (" + fps + "/" + target + " FPS)";
     }
 }

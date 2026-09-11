@@ -19,6 +19,11 @@ public final class FixordiumConfig {
 
     public boolean enabled = true;
     public boolean debugCullingCounter = false;
+    public boolean decorationCulling = true;
+    public boolean entityShadows = true;
+    public boolean smartMode = false;
+    public int smartTargetFps = 60;
+    public boolean stopMusicOnPause = false;
     public boolean containerAnimations = true;
     public boolean blockEntityAnimations = true;
 
@@ -30,7 +35,11 @@ public final class FixordiumConfig {
         }
         try (Reader reader = Files.newBufferedReader(FILE, StandardCharsets.UTF_8)) {
             FixordiumConfig config = GSON.fromJson(reader, FixordiumConfig.class);
-            return config == null ? new FixordiumConfig() : config;
+            if (config == null) {
+                return new FixordiumConfig();
+            }
+            config.smartTargetFps = Math.max(30, Math.min(240, config.smartTargetFps));
+            return config;
         } catch (Exception exception) {
             System.err.println("[Fixordium] Could not load config: " + exception.getMessage());
             return new FixordiumConfig();
