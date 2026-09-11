@@ -3,6 +3,7 @@ package dev.fixpot47.fixordium;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.Screen;
 
 public final class FixordiumPerformanceController {
     private static final int SAMPLE_TICKS = 20;
@@ -22,12 +23,13 @@ public final class FixordiumPerformanceController {
     }
 
     private static void tick(Minecraft client) {
-        handlePauseMusic(client);
-        updateSmartMode(client);
+        Screen currentScreen = client.gui.screen();
+        handlePauseMusic(client, currentScreen);
+        updateSmartMode(client, currentScreen);
     }
 
-    private static void handlePauseMusic(Minecraft client) {
-        boolean nowPaused = client.screen instanceof PauseScreen;
+    private static void handlePauseMusic(Minecraft client, Screen currentScreen) {
+        boolean nowPaused = currentScreen instanceof PauseScreen;
         if (nowPaused
                 && !pauseScreenOpen
                 && FixordiumClient.isEnabled()
@@ -37,7 +39,7 @@ public final class FixordiumPerformanceController {
         pauseScreenOpen = nowPaused;
     }
 
-    private static void updateSmartMode(Minecraft client) {
+    private static void updateSmartMode(Minecraft client, Screen currentScreen) {
         if (!FixordiumClient.isEnabled() || !FixordiumClient.isSmartModeEnabled() || client.level == null) {
             smartBoostActive = false;
             ticksSinceSample = 0;
@@ -46,7 +48,7 @@ public final class FixordiumPerformanceController {
         }
 
         // Menu FPS is not representative of gameplay, so only sample while actually playing.
-        if (client.screen != null) {
+        if (currentScreen != null) {
             return;
         }
 
