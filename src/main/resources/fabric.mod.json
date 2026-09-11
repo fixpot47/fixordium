@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "fixordium",
+  "version": "${version}",
+  "name": "Fixordium",
+  "description": "A lightweight client-side rendering optimization mod that skips unnecessary living-entity rendering outside your view.",
+  "authors": ["fixpot47"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.fixpot47.fixordium.FixordiumClient"]
+  },
+  "mixins": [
+    {
+      "config": "fixordium.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": ">=1.21.8 <=26.2",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
