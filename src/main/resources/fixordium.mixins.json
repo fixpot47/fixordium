@@ -2,7 +2,8 @@
   "required": true,
   "package": "dev.fixpot47.fixordium.mixin",
   "client": [
-    "ModernEntityRenderDispatcherMixin"
+    "ModernEntityRenderDispatcherMixin",
+    "BlockEntityRenderDispatcherMixin"
   ],
   "injectors": {
     "defaultRequire": 1

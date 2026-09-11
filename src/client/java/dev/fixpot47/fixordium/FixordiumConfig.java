@@ -18,6 +18,9 @@ public final class FixordiumConfig {
     private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("fixordium.json");
 
     public boolean enabled = true;
+    public boolean debugCullingCounter = false;
+    public boolean containerAnimations = true;
+    public boolean blockEntityAnimations = true;
 
     public static FixordiumConfig load() {
         if (!Files.exists(FILE)) {

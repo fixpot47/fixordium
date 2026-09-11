@@ -5,6 +5,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 public final class FixordiumRuntime {
+    private static final long SAMPLE_NANOS = 1_000_000_000L;
+
+    private static long sampleStartedAt = System.nanoTime();
+    private static long cullsInWindow;
+    private static long displayedCullsPerSecond;
+    private static long totalCulls;
+
     private FixordiumRuntime() {
     }
 
@@ -13,9 +20,41 @@ public final class FixordiumRuntime {
             return false;
         }
 
-        // This is deliberately limited to a fast camera-frustum pre-check.
-        // It never unloads, freezes, or changes entity logic, and it does not
-        // interfere with wall-occlusion, particle, chunk, or block culling mods.
-        return !frustum.isVisible(entity.getBoundingBox());
+        // Fast early camera-frustum check before vanilla resolves the entity renderer.
+        // The entity is never removed, frozen or changed in the world.
+        boolean culled = !frustum.isVisible(entity.getBoundingBox());
+        if (culled) {
+            recordCull();
+        }
+        return culled;
+    }
+
+    private static void recordCull() {
+        rollCounterWindow();
+        cullsInWindow++;
+        totalCulls++;
+    }
+
+    private static void rollCounterWindow() {
+        long now = System.nanoTime();
+        long elapsed = now - sampleStartedAt;
+        if (elapsed < SAMPLE_NANOS) {
+            return;
+        }
+
+        displayedCullsPerSecond = elapsed > 0
+                ? Math.round(cullsInWindow * (1_000_000_000.0 / elapsed))
+                : cullsInWindow;
+        cullsInWindow = 0L;
+        sampleStartedAt = now;
+    }
+
+    public static long getCullsPerSecond() {
+        rollCounterWindow();
+        return displayedCullsPerSecond;
+    }
+
+    public static long getTotalCulls() {
+        return totalCulls;
     }
 }

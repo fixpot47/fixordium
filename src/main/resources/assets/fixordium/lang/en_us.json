@@ -1,6 +1,14 @@
 {
-  "fixordium.page.general": "Fixordium",
-  "fixordium.group.rendering": "Rendering",
+  "fixordium.page.performance": "Performance",
+  "fixordium.page.animations": "Animations",
+  "fixordium.group.entity_culling": "Entity Culling",
+  "fixordium.group.animations": "Animation Optimizations",
   "fixordium.option.enabled": "Fixordium",
-  "fixordium.option.enabled.tooltip": "Skips rendering players and mobs when they are outside your camera view. Entities still exist and continue working normally."
+  "fixordium.option.enabled.tooltip": "Master switch for Fixordium. Enables the early entity culling optimization and allows Fixordium animation optimizations to apply.",
+  "fixordium.option.debug_counter": "Debug Culling Counter",
+  "fixordium.option.debug_counter.tooltip": "Shows a live top-right counter with entities culled per second and the total number culled this session.",
+  "fixordium.option.container_animations": "Container Animations",
+  "fixordium.option.container_animations.tooltip": "Controls smooth Chest, Ender Chest and Shulker Box animations. When disabled, they snap between open and closed states. Barrels already use an instant open/closed state in vanilla.",
+  "fixordium.option.block_entity_animations": "Other Block Entity Animations",
+  "fixordium.option.block_entity_animations.tooltip": "Controls continuous animations for banners, bells, enchanting-table books, skulls, spawners, beacons, conduits, vaults and End Gateway beams. Disable to keep them visually static."
 }

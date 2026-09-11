@@ -1,6 +1,14 @@
 {
-  "fixordium.page.general": "Fixordium",
-  "fixordium.group.rendering": "Рендеринг",
+  "fixordium.page.performance": "Производительность",
+  "fixordium.page.animations": "Анимации",
+  "fixordium.group.entity_culling": "Отсечение сущностей",
+  "fixordium.group.animations": "Оптимизация анимаций",
   "fixordium.option.enabled": "Fixordium",
-  "fixordium.option.enabled.tooltip": "Не рендерит игроков и мобов, когда они находятся вне поля зрения камеры. Сущности продолжают существовать и работать как обычно."
+  "fixordium.option.enabled.tooltip": "Главный переключатель Fixordium. Включает раннее отсечение сущностей и позволяет применять оптимизации анимаций Fixordium.",
+  "fixordium.option.debug_counter": "Debug Culling Counter",
+  "fixordium.option.debug_counter.tooltip": "Показывает справа сверху количество отсечённых сущностей в секунду и общее количество за текущий запуск игры.",
+  "fixordium.option.container_animations": "Анимации контейнеров",
+  "fixordium.option.container_animations.tooltip": "Управляет плавной анимацией сундуков, эндер-сундуков и шалкеровых ящиков. При отключении они мгновенно переключаются между открытым и закрытым состоянием. У бочек в ванильном Minecraft уже нет плавной анимации.",
+  "fixordium.option.block_entity_animations": "Остальные анимации блоков",
+  "fixordium.option.block_entity_animations.tooltip": "Управляет постоянными анимациями баннеров, колоколов, книг стола зачарований, голов, спавнеров, маяков, проводников, хранилищ и лучей врат Края. Отключение делает их визуально статичными."
 }
