@@ -27,7 +27,6 @@ loom {
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 processResources {
@@ -40,6 +39,8 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
+    // The universal jar intentionally targets Java 21 bytecode.
+    // Minecraft 26.x runs it on Java 25, while 1.21.x can run it on Java 21+.
     it.options.release = 21
 }
 
