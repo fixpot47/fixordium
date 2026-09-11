@@ -1,0 +1,86 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  compatibility:
+    name: Compatibility ${{ matrix.minecraft }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - minecraft: '1.21.8'
+            fabric_api: '0.136.1+1.21.8'
+          - minecraft: '1.21.9'
+            fabric_api: '0.134.1+1.21.9'
+          - minecraft: '1.21.10'
+            fabric_api: '0.138.4+1.21.10'
+          - minecraft: '1.21.11'
+            fabric_api: '0.141.6+1.21.11'
+          - minecraft: '26.1'
+            fabric_api: '0.145.1+26.1'
+          - minecraft: '26.1.1'
+            fabric_api: '0.145.4+26.1.1'
+          - minecraft: '26.1.2'
+            fabric_api: '0.152.1+26.1.2'
+          - minecraft: '26.2'
+            fabric_api: '0.160.0+26.2'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle 9.5.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.5.1'
+
+      - name: Compile for Minecraft ${{ matrix.minecraft }}
+        run: >-
+          gradle clean build --stacktrace
+          -Pminecraft_version='${{ matrix.minecraft }}'
+          -Pfabric_api_version='${{ matrix.fabric_api }}'
+
+  build:
+    name: Universal JAR
+    needs: compatibility
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle 9.5.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.5.1'
+
+      - name: Build universal mod jar
+        run: gradle clean build --stacktrace
+
+      - name: Prepare final jar
+        run: |
+          mkdir -p dist
+          cp build/libs/fixordium-1.0.0.jar dist/fixordium.jar
+
+      - name: Upload mod jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: fixordium-universal
+          path: dist/fixordium.jar
