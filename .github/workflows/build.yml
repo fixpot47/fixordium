@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Fixordium 26.2
+    name: Fixordium 26.3
     runs-on: ubuntu-24.04
 
     steps:
@@ -31,7 +31,7 @@ jobs:
       - name: Verify final jar
         run: |
           mkdir -p dist
-          cp build/libs/fixordium-1.0.3.jar dist/fixordium.jar
+          cp build/libs/fixordium-1.1.0.jar dist/fixordium.jar
           jar tf dist/fixordium.jar | grep 'dev/fixpot47/fixordium/FixordiumClient.class'
           jar tf dist/fixordium.jar | grep 'dev/fixpot47/fixordium/FixordiumSodiumConfig.class'
           jar tf dist/fixordium.jar | grep 'dev/fixpot47/fixordium/FixordiumPerformanceController.class'
@@ -43,5 +43,5 @@ jobs:
       - name: Upload mod jar
         uses: actions/upload-artifact@v4
         with:
-          name: fixordium-1.0.3-mc26.2
+          name: fixordium-1.1.0-mc26.3
           path: dist/fixordium.jar
