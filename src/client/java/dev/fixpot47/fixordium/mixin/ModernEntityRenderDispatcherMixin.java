@@ -20,6 +20,7 @@ public abstract class ModernEntityRenderDispatcherMixin {
             double cameraX,
             double cameraY,
             double cameraZ,
+            float partialTicks,
             CallbackInfoReturnable<Boolean> cir
     ) {
         if (FixordiumRuntime.shouldCull(entity, frustum)) {
