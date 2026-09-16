@@ -3,7 +3,7 @@
   "id": "fixordium",
   "version": "${version}",
   "name": "Fixordium",
-  "description": "A lightweight client-side rendering optimization mod for Fabric and Sodium.",
+  "description": "A client-side rendering optimization mod for Fabric and Sodium.",
   "authors": ["fixpot47"],
   "contact": {
     "sources": "https://github.com/fixpot47/fixordium"
